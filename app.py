@@ -1,10 +1,39 @@
-def create_chunks(full_text,chunksize = 500,overlap=100):
-  chunks = []
-  start = 0
-  while start<len(full_text):  #0<1000       400<1000     800<1000
-    end = start + chunksize    #500          400+500 900   800+500=1300
-    chunk = full_text[start:end] #[0:500]    [400:900]     [800:1300]
-    if chunk.strip():
-      chunks.append(chunk)
-    start = end - overlap #500-100 = 400    900-100=800    1300-100=1200
-  return chunks
+import streamlit as st
+from rag_engine import load_base,ask_rag
+st.set_page_config(page_title = "SIET_multi_Chatbot",layout = 'centered')
+st.title("Explore SIET with Chatbot")
+st.caption("Ask anything about college information,Courses,Placements,FAQs,Rules and regulation...")
+st.caption("RAG Pipeline with Multiple files")
+st.caption("Developed by Akshata Ganesh")
+
+mykey = st.secrets["GROQ_API_KEY"]
+
+@st.cache_resource
+def initiate_rag():
+  return load_base("college_docs")
+index,embed_model,chunks = initiate_rag()
+
+if "chat_hist" not in st.session_state:
+  st.session_state.chat_hist = []
+
+for qa in   st.session_state.chat_hist :
+  with st.chat_message(qa["role"]):
+    st.write(qa["content"])
+
+question = st.chat_input("Ask anything about SIET college....")
+
+if question :
+  st.session_state.chat_hist.append(
+    {"role":"user","content":question})
+  with st.chat_message("user"):
+    st.write(question)
+  with st.chat_message("assistant"):
+    with st.spinner("Asking RAG for Answer...."):
+      answer = ask_rag(question,embed_model,chunks,index,api_key = mykey)
+      st.write(answer)
+    st.session_state.chat_hist.append(
+    {"role":"assistant","content":answer})
+
+if st.button("Clear chat"):
+  st.session_state.chat_hist = []
+  st.rerun()
