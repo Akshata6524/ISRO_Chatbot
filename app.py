@@ -8,7 +8,7 @@ st.set_page_config(page_title = "ISRO Chatbot",page_icon = "🚀",layout = 'cent
 st.title("🚀 ISRO Space Assistant")
 st.caption("🛰️ Ask anything about ISRO missions, satellites, launch vehicles, and space research...")
 st.caption("📚 RAG Pipeline with Multiple Documents")
-st.caption("👨‍🚀 Developed by Team Vyoma")
+st.caption("👨‍🚀 Developed by Group_1")
 
 mykey = st.secrets["GROQ_API_KEY"]
 
@@ -24,7 +24,7 @@ if "sidebar_view" not in st.session_state:
   st.session_state.sidebar_view = None
 
 # NEW (3): icons for chat messages
-avatars = {"user":"🧑‍🚀","assistant":"🛰️"}
+avatars = {"user":"🧑‍🚀","assistant":"🤖"}
 
 with st.sidebar:
   st.header("📌 Menu")
@@ -69,9 +69,12 @@ The chunks and question go to the Groq LLM, which answers only from the document
     st.write("The chatbot reads multiple ISRO PDFs, splits them into chunks, converts them to embeddings, and stores them in FAISS. For each question it retrieves the 3 most relevant chunks and sends them to the Groq LLM, which answers only from those documents.")
 
     st.markdown("**👥 3. Team Members**")
-    st.write("🌟 Akshata Ganesh")
-    st.write("🌟 Member name 2")
-    st.write("🌟 Member name 3")
+    st.write("1. Abhilash")
+    st.write("2. Akshata Ganesh Nagaloti")
+    st.write("3. Apoorva")
+    st.write("4. Bharath V Reddy")
+    st.write("5. Rashmitha")
+    st.write("6. Chetan T S")
 
 # NEW (7): avatar added to the chat history display
 for qa in   st.session_state.chat_hist :
