@@ -52,17 +52,26 @@ Your question is embedded and the top 3 similar chunks are fetched.
 The chunks and question go to the Groq LLM, which answers only from the documents.
 """)
 
-  # NEW (4): content shown when "Information" is clicked
+   # NEW (4): content shown when "Information" is clicked
   elif st.session_state.sidebar_view == "info":
     st.subheader("Information")
-    st.markdown("""
-**Topic 1** : (will add)
 
-**Topic 2** : (will add)
+    # Topic 1
+    st.markdown("**1. Project Information**")
+    st.write("SIET Multi Chatbot is a RAG based chatbot that answers questions about the college using the uploaded PDF documents.")
 
-**Topic 3** : (will add)
-""")
+    # Topic 2
+    st.markdown("**2. Description**")
+    st.write("The chatbot reads multiple PDFs, splits them into chunks, converts them to embeddings, and stores them in FAISS. For each question it retrieves the 3 most relevant chunks and sends them to the Groq LLM, which answers only from those documents.")
 
+    # Topic 3
+    st.markdown("**3. Team Members**")
+    st.write("1. Akshata Ganesh Nagaloti")
+    st.write("2. Abhilash")
+    st.write("3. Bharath V Reddy")
+    st.write("4. Apoorva")
+    st.write("5. Rashamitha")
+    
 for qa in   st.session_state.chat_hist :
   with st.chat_message(qa["role"]):
     st.write(qa["content"])
