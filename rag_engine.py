@@ -38,7 +38,7 @@ def build_vectors(chunks,model_name="all-MiniLM-L6-v2"):
   return index,embed_model
 
 #Call loadpdf,chunk,embedding
-def load_base(pdf_path = "college_docs"):
+def load_base(pdf_path = "ISRO_data_docs"):
   chunks = []
   for pdf in Path(pdf_path).glob("*.pdf"):
     full_text = load_pdf(pdf)
